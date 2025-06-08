@@ -16,9 +16,15 @@ Key Features:
 Output:
     Parquet file saved to Data/data-warehouse/parquet/DWER/combined_water_levels.parquet
 
+Requirements:
+    - pandas
+    - openpyxl
+    - pyarrow
+
 Author: Brendan Busch, Matthew Hipsey
 
-"""
+
+""" 
 
 import pandas as pd
 from pathlib import Path
@@ -110,6 +116,11 @@ if 'Sample Depths M' in combined_df.columns:
 if 'COC No' in combined_df.columns:
     print("🔧 Converting 'COC No' to string...")
     combined_df['COC No'] = combined_df['COC No'].astype(str)
+
+# --- Remove rows with NaN Reading Value ---
+pre_drop_shape = combined_df.shape
+combined_df = combined_df.dropna(subset=['Reading Value'])
+print(f"🧹 Removed {pre_drop_shape[0] - combined_df.shape[0]} rows with NaN Reading Value.")
 
 # Export the final DataFrame to a Parquet file using pyarrow
 combined_df.to_parquet(output_path, index=False, engine='pyarrow')

@@ -1,1 +1,1 @@
-Blank	
+processing.run("qgis:tininterpolation", {'INTERPOLATION_DATA':'/Volumes/Cloud/github/lake-richmond/GIS/Bathymetry/LR_Topography_2m.shp::~::1::~::-1::~::0','METHOD':0,'EXTENT':'378220.458500000,379828.297300000,6426514.943900000,6428054.093400000 [EPSG:28350]','PIXEL_SIZE':3,'OUTPUT':'TEMPORARY_OUTPUT'})
