@@ -36,7 +36,7 @@ from shapely.geometry import Polygon
 
 
 # Load the shapefile
-gdf = gpd.read_file('GIS/Bathymetry/1m_bathy_interp_contour_v2.shp')
+gdf = gpd.read_file('GIS/Bathymetry/TDB/1m_bathy_interp_contour_v2.shp')
 
 # Drop features without contour data
 gdf = gdf[gdf['Contour'].notnull()]
