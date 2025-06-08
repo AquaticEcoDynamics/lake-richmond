@@ -28,6 +28,8 @@ Requirements:
 
 Run with:
     streamlit run Code/visualisations/app.py --server.port 8501 --server.address 0.0.0.0
+View with (local):
+    http://localhost:8501
 
 Author: Brendan Busch, Matthew Hipsey
 """
@@ -48,15 +50,23 @@ def load_data():
 
 df = load_data()
 
+# Global filters
+st.sidebar.header("🔍 Global Filters")
+site_refs = ['All'] + sorted(df['Site Ref'].dropna().unique())
+variable_names = ['All'] + sorted(df['Variable Name'].dropna().unique())
+
+selected_site_ref = st.sidebar.selectbox("Site Ref", site_refs)
+selected_variable = st.sidebar.selectbox("Variable Name", variable_names)
+
+if selected_site_ref != 'All':
+    df = df[df['Site Ref'] == selected_site_ref]
+if selected_variable != 'All':
+    df = df[df['Variable Name'] == selected_variable]
+
+filtered = df
+
 # Title
 st.title("💧 Water Levels Dashboard")
-
-# Site selector
-sites = df['Site Ref'].dropna().unique()
-selected_site = st.selectbox("Select Site", sorted(sites))
-
-# Filter by selected site
-filtered = df[df['Site Ref'] == selected_site]
 
 # Optional date filter
 if 'Collected Date Time' in filtered.columns:
@@ -71,7 +81,7 @@ if 'Collected Date Time' in filtered.columns:
     ]
 
 # Show filtered data table
-st.subheader(f"📄 Data for Site: {selected_site}")
+st.subheader(f"📄 Data for Site: {selected_site_ref if selected_site_ref != 'All' else 'All Sites'}")
 st.dataframe(filtered)
 
 # Summary stats
@@ -97,4 +107,5 @@ if 'Collected Date Time' in filtered.columns:
 # Optional map
 if {'Latitude', 'Longitude'}.issubset(filtered.columns):
     st.subheader("🗺 Sampling Locations Map")
-    st.map(filtered[['Latitude', 'Longitude']].dropna())
+    map_df = filtered[['Latitude', 'Longitude']].dropna().rename(columns={"Latitude": "latitude", "Longitude": "longitude"})
+    st.map(map_df)
