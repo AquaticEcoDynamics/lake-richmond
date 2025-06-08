@@ -1,3 +1,23 @@
+"""
+Script: barra_export_all_info.py
+
+Description:
+    This script extracts annual time series from BARRA NetCDF files for a 
+    specified point (closest to lat/lon: -32.2855846, 115.7145707). It exports 
+    a CSV for each year between 2000 and 2012, containing the following variables:
+    - uwnd10m, vwnd10m, mslp, downward_longwave, downward_shortwave,
+      air_temp_2m, precip_rate, relhum
+
+    Output format: time,uwnd10m,vwnd10m,mslp,downward_longwave,
+                   downward_shortwave,air_temp_2m,precip_rate,relhum
+
+Dependencies:
+    - numpy
+    - pandas
+    - netCDF4
+
+Author: Brendan Busch, Matthew Hipsey
+"""
 import os
 import numpy as np
 import pandas as pd
@@ -17,7 +37,7 @@ variables = [
     "air_temp_2m", "precip_rate", "relhum"
 ]
 
-years = range(2000, 2013)  # inclusive
+years = range(2000, 2018)  # inclusive
 
 # --- Loop over years ---
 for year in years:
@@ -37,8 +57,8 @@ for year in years:
         lat_idx = (np.abs(lats - lat_target)).argmin()
         lon_idx = (np.abs(lons - lon_target)).argmin()
 
-        # --- Extract time values ---
-        time_var = nc.variables["time"]
+        # --- Extract local time values ---
+        time_var = nc.variables["local_time"]
         times = num2date(time_var[:], units=time_var.units, only_use_cftime_datetimes=False)
         timestamps = [t.strftime("%Y-%m-%d %H:%M:%S") for t in times]
 
