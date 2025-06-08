@@ -24,7 +24,7 @@ import numpy as np
 import rasterio
 
 # --- Parameters ---
-tiff_path = "GIS/Bathymetry/2m_bathy_interp.tif"  # Update this path as needed
+tiff_path = "GIS/Bathymetry/2m_bathy_interp_v2_clipped.tif"  # Update this path as needed
 cell_area = 4.0  # m² per raster cell (2m x 2m)
 
 # --- Load raster ---
@@ -33,7 +33,7 @@ with rasterio.open(tiff_path) as src:
     raster[raster == src.nodata] = np.nan  # Replace NoData with NaN
 
 # --- Define elevation levels ---
-levels = np.arange(-14, 1.5, 0.5)  # -14 to 1 inclusive
+levels = np.arange(-14, 0.5, 0.5)  # -14 to 1 inclusive
 cumulative_areas = []
 
 # --- Calculate cumulative areas ---
