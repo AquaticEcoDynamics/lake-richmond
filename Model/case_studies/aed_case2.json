@@ -1,0 +1,33 @@
+{
+  "aed_models": {
+    "models": [
+      "aed_sedflux",
+      "aed_oxygen"
+    ]
+  },
+  "aed_sedflux": {
+    "sedflux_model": "Constant2d"
+  },
+  "aed_sed_const2d": {
+    "n_zones": 3,
+    "active_zones": [
+      1,
+      2,
+      3
+    ],
+    "fsed_oxy": [
+      -25,
+      -4,
+      -1
+    ]
+  },
+  "aed_oxygen": {
+    "oxy_initial": 225.0,
+    "fsed_oxy": -10.0,
+    "ksed_oxy": 25.0,
+    "theta_sed_oxy": 1.08,
+    "fsed_oxy_variable": "SDF_Fsed_oxy",
+    "oxy_min": 0,
+    "oxy_max": 500
+  }
+}

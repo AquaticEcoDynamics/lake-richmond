@@ -1,0 +1,57 @@
+{
+  "aed_models": {
+    "models": [
+      "aed_sedflux",
+      "aed_oxygen",
+      "aed_phytoplankton"
+    ]
+  },
+  "aed_sedflux": {
+    "sedflux_model": "Constant2d"
+  },
+  "aed_sed_const2d": {
+    "n_zones": 3,
+    "active_zones": [
+      1,
+      2,
+      3
+    ],
+    "fsed_oxy": [
+      -25,
+      -4,
+      -1
+    ]
+  },
+  "aed_oxygen": {
+    "oxy_initial": 225.0,
+    "fsed_oxy": -10.0,
+    "ksed_oxy": 25.0,
+    "theta_sed_oxy": 1.08,
+    "fsed_oxy_variable": "SDF_Fsed_oxy",
+    "oxy_min": 0,
+    "oxy_max": 500
+  },
+  "aed_phytoplankton": {
+    "num_phytos": 1,
+    "the_phytos": 1,
+    "settling": 1,
+    "p_excretion_target_variable": "",
+    "n_excretion_target_variable": "",
+    "c_excretion_target_variable": "",
+    "si_excretion_target_variable": "",
+    "p_mortality_target_variable": "",
+    "n_mortality_target_variable": "",
+    "c_mortality_target_variable": "",
+    "si_mortality_target_variable": "",
+    "p1_uptake_target_variable": "",
+    "n1_uptake_target_variable": "",
+    "n2_uptake_target_variable": "",
+    "si_uptake_target_variable": "",
+    "do_uptake_target_variable": "OXY_oxy",
+    "c_uptake_target_variable": "",
+    "dbase": "aed/aed_phyto_pars.csv",
+    "diag_level": 10,
+    "min_rho": 900.0,
+    "max_rho": 1200.0
+  }
+}

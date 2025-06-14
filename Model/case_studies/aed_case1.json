@@ -1,0 +1,14 @@
+{
+  "aed_models": {
+    "models": "aed_oxygen"
+  },
+  "aed_oxygen": {
+    "oxy_initial": 225.0,
+    "fsed_oxy": -10.0,
+    "ksed_oxy": 25.0,
+    "theta_sed_oxy": 1.08,
+    "fsed_oxy_variable": "",
+    "oxy_min": 0,
+    "oxy_max": 500
+  }
+}

@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: glm-py
+Version: 0.0.0
+Summary: Python tools for running General Lake Model (GLM) simulations
+Project-URL: Repository, https://github.com/AquaticEcoDynamics/glm-py
+Keywords: GLM,Lake,Model
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: fastapi[all]>=0.88.0
+Requires-Dist: numpy>=1.26
+Requires-Dist: python-multipart
+Requires-Dist: regex>=2023.12.25
+Requires-Dist: netcdf4>=1.7.1.post2
+Requires-Dist: matplotlib>=3.9.0
+Provides-Extra: toml
+Requires-Dist: tomli; python_version < "3.11" and extra == "toml"
