@@ -1,3 +1,12 @@
 /.venv
 /Working
 /Documents
+.DS_Store
+Code/.DS_Store
+Data/data-lake/.DS_Store
+Data/data-lake/DWER/.DS_Store
+Data/data-lake/HGE/MSc/~$DigitisedData.xlsx
+Data/data-lake/HGE/MSc/~$drology and Water Chemistry_21_05_2017 - Parts 1 and 2 reviewed Alex.docx
+Data/data-lake/DWER/.DS_Store
+Data/data-lake/.DS_Store
+.DS_Store
