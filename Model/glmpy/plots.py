@@ -180,7 +180,7 @@ class LakePlotter:
         self._set_default_plot_params(param_dict, {"color": "#1f77b4"})
         out = ax.plot(
             mdates.date2num(self.lake_pd["time"]),
-            self.lake_pd["Lake Level"],
+            self.lake_pd["Lake Level"]-14.6,
             **param_dict,
         )
         ax.xaxis.set_major_formatter(self._date_formatter)
