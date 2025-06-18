@@ -1,0 +1,5 @@
+{
+    "dockerFile": "Dockerfile",
+    "extensions": ["ms-python.python"]
+
+}
