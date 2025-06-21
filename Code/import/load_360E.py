@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Define the file path
-file_path = "../../Data/data-lake/360E/4713AA_Rev 2 Lake Richmond Monitoring field & lab data.xlsx"
+file_path = "Data/data-lake/360E/4713AA_Rev 2 Lake Richmond Monitoring field & lab data.xlsx"
 
 # Load the 'Data Logger' sheet
 df_logger = pd.read_excel(file_path, sheet_name='Data Logger')
@@ -42,4 +42,4 @@ axs[4].set_xlabel("Date")
 plt.tight_layout()
 plt.show()
 
-plt.savefig('../../Data/data-lake/360E/360E.png')
+plt.savefig('Data/data-lake/360E/360E.png')
