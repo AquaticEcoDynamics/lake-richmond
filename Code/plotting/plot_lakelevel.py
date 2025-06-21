@@ -8,13 +8,14 @@ import os
 
 # Plot x-axis limits
 xlim_start = pd.Timestamp("2010-01-01")
-xlim_end = pd.Timestamp("2015-01-01")
+xlim_end = pd.Timestamp("2020-01-01")
 
 # Plot styles by site
 plot_styles = {
     "s6142501": {"kind": "line", "color": "blue"},
     "Stadia": {"kind": "scatter", "color": "orange"},
     "WL": {"kind": "scatter", "color": "black"},
+    "Logger": {"kind": "line", "color": "green"},
 }
 
 # Interval for X Ticks (yearly)
