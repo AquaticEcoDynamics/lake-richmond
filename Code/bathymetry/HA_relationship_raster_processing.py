@@ -16,8 +16,12 @@ Key Features:
 Requirements:
     - numpy
     - rasterio
+    - GDAL (must be installed and configured for rasterio to function correctly)
 
-Author: Brendan Busch, Matthew Hipsey
+Installation Notes (macOS):
+    - Install GDAL using Homebrew: `brew install gdal`
+    - Optionally install rasterio with local GDAL bindings: `pip install rasterio --no-binary rasterio`
+    - Ensure GDAL is discoverable in your environment (e.g., via PATH)
 """
 
 import numpy as np
