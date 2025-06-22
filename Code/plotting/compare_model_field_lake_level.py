@@ -46,11 +46,16 @@ xlim_end = pd.Timestamp("2020-01-01")
 
 # Plot styles by site - customize marker types and colors for each site
 plot_styles = {
-    "s6142501": {"kind": "line", "color": "blue"},
+    "s6142501": {"kind": "scatter", "color": "blue"},
     "Stadia": {"kind": "scatter", "color": "orange"},
     "WL": {"kind": "scatter", "color": "black"},
-    "Logger": {"kind": "line", "color": "green"},
-    "Model": {"kind": "line", "color": "red"}
+    "Logger": {"kind": "scatter", "color": "green"},
+    "Grab": {"kind": "scatter", "color": "pink"},
+    "MSc board": {"kind": "scatter", "color": "purple"},
+    "MSc Logger": {"kind": "scatter", "color": "brown"},
+    "Board": {"kind": "scatter", "color": "cyan"},
+    "Model": {"kind": "line", "color": "red"},
+    
 }
 
 # Interval for X Ticks (yearly) - adjust for more or fewer ticks on x-axis
@@ -82,7 +87,7 @@ df_model["DateTime"] = pd.to_datetime(df_model["time"], errors='coerce') + pd.to
 df_model["Site"] = "Model"
 df_model["Agency"] = "Model"
 df_model["Variable"] = "Water Level (mAHD)"
-df_model["Reading"] = df_model["Lake Level"]
+df_model["Reading"] = df_model["Lake Level"] - 14.6
 
 # Select relevant columns for plotting
 df_model = df_model[["Agency", "Site", "DateTime", "Variable", "Reading"]]

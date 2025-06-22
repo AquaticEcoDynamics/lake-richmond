@@ -40,6 +40,7 @@ pipeline_scripts = [
     "import_dwer_lakelevel.py",
     "load_mwh.py",
     "import_hge.py",
+    "import_hge_msc_lakelevel.py"
 ]
 
 def run_pipeline():
