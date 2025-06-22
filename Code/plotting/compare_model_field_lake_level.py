@@ -53,7 +53,6 @@ plot_styles = {
     "Grab": {"kind": "scatter", "color": "pink"},
     "MSc board": {"kind": "scatter", "color": "purple"},
     "MSc Logger": {"kind": "scatter", "color": "brown"},
-    "Board": {"kind": "scatter", "color": "cyan"},
     "Model": {"kind": "line", "color": "red"},
     
 }
