@@ -4,8 +4,10 @@ import matplotlib.dates as mdates
 
 from glmpy import plots
 
-nc = plots.NCPlotter("richmond/output/output.nc")
+#----------------------------------------------
+# Lake GLM profile series
 
+nc = plots.NCPlotter("richmond/output/output.nc")
 vars = nc.get_profile_vars()
 
 plot_vars = vars[3:6]     # returns the variables: ['salt', 'temp', 'dens', 'radn']
@@ -17,9 +19,11 @@ for idx, var, in enumerate(plot_vars):
     col_bar = fig.colorbar(out)
     col_bar.set_label(f"{long_name} ({units})")
 
-plt.savefig('lake_3.png')
+plt.savefig('lake_3panel_glm.png')
 
+#----------------------------------------------
 # Lake WATER BALANCE plots
+
 lake = plots.LakePlotter("richmond/output/lake.csv")
 
 fig, axs = plt.subplots(nrows=3, ncols=1,figsize=(10, 15))
@@ -68,9 +72,29 @@ axs[2].set_ylim(-6000, 15000)
 axs[2].set_xlim(pd.Timestamp("2011-01-01"), pd.Timestamp("2012-01-01")) 
 axs[2].legend(handles=out1,loc='upper left')
 
-plt.savefig('lake_wb.png')
+plt.savefig('lake_water_balance.png')
 
-# Lake level plots
+#----------------------------------------------
+# Lake WATER LEVEL plots
+
 fig, ax = plt.subplots(figsize=(10, 5))
 lake.lake_level(ax=ax)
 plt.savefig('lake_level.png')
+
+
+#----------------------------------------------
+# Lake AED profile series
+
+#vars = nc.get_profile_vars()
+#print("Current vars:", vars)
+plot_vars = [vars[11], vars[13], vars[14]]   # returns the AED variables
+
+fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(10, 14))
+for idx, var, in enumerate(plot_vars):
+    out = nc.plot_var_profile(axs[idx], var)
+    long_name = nc.get_long_name(var)
+    units = nc.get_units(var)
+    col_bar = fig.colorbar(out)
+    col_bar.set_label(f"{long_name} ({units})")
+
+plt.savefig('lake_3panel_aed.png')
