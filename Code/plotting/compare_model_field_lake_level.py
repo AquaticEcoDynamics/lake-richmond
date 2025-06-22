@@ -46,15 +46,15 @@ xlim_end = pd.Timestamp("2020-01-01")
 
 # Plot styles by site - customize marker types and colors for each site
 plot_styles = {
-    "s6142501": {"kind": "scatter", "color": "blue"},
-    "Stadia": {"kind": "scatter", "color": "orange"},
-    "WL": {"kind": "scatter", "color": "black"},
-    "Logger": {"kind": "scatter", "color": "green"},
-    "Grab": {"kind": "scatter", "color": "pink"},
-    "MSc board": {"kind": "scatter", "color": "purple"},
+    "s6142501":   {"kind": "scatter", "color": "blue"},
+    "Stadia":     {"kind": "scatter", "color": "orange"},
+    "WL":         {"kind": "scatter", "color": "black"},
+    "Logger":     {"kind": "scatter", "color": "green"},
+    "Grab":       {"kind": "scatter", "color": "pink"},
+    "MSc board":  {"kind": "scatter", "color": "yellow"},
     "MSc Logger": {"kind": "scatter", "color": "brown"},
-    "Board": {"kind": "scatter", "color": "cyan"},
-    "Model": {"kind": "line", "color": "red"},
+    "Board":      {"kind": "scatter", "color": "cyan"},
+    "Model":      {"kind": "line", "color": "red"},
     
 }
 
@@ -104,7 +104,7 @@ print("Sites in the dataset:", unique_sites)
 # -------------------- Plotting Section --------------------
 
 # Create the plot figure with specified size
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(12, 7))
 
 # Plot each site separately with its designated style
 for site in df["Site"].unique():
@@ -130,6 +130,12 @@ plt.gca().xaxis.set_major_formatter(formatter)
 
 # Set x-axis limits according to configuration
 plt.xlim(xlim_start, xlim_end)
+
+plt.axvspan(pd.Timestamp("2011-01-01"), pd.Timestamp("2012-01-01"), color='gray', alpha=0.08)
+plt.axvspan(pd.Timestamp("2013-01-01"), pd.Timestamp("2014-01-01"), color='gray', alpha=0.08)
+plt.axvspan(pd.Timestamp("2015-01-01"), pd.Timestamp("2016-01-01"), color='gray', alpha=0.08)
+plt.axvspan(pd.Timestamp("2017-01-01"), pd.Timestamp("2018-01-01"), color='gray', alpha=0.08)
+plt.axvspan(pd.Timestamp("2019-01-01"), pd.Timestamp("2020-01-01"), color='gray', alpha=0.08)
 
 # Add legend and adjust layout
 plt.legend()

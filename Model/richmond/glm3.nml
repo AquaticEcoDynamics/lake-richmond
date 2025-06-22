@@ -14,15 +14,18 @@
 !          '----------------'  '----------------'  '----------------'          !
 !                                                                              !
 !-------------------------------------------------------------------------------
-
+!                                                                              !
+! Refer to this link for assistance with variable assignment                   !
+! https://aed.see.uwa.edu.au/research/models/glm/configuration.html            !
+!                                                                              !
 !-------------------------------------------------------------------------------
 ! general model setup
 !-------------------------------------------------------------------------------
 &glm_setup
-   sim_name = 'Richmond 10yr example'
+   sim_name = 'Richmond 10yr calibration'
    max_layers = 200
    min_layer_vol = 0.025
-   min_layer_thick = 0.2
+   min_layer_thick = 0.20
    max_layer_thick = 0.60
    density_model = 1
 /
@@ -30,29 +33,28 @@
 ! mixing
 !-------------------------------------------------------------------------------
 &mixing
-  surface_mixing = 1 !1
+  surface_mixing = 1 
   coef_mix_conv  = 0.125
-  coef_wind_stir = 0.13
-  coef_mix_shear = 0.1 !0.1
-  coef_mix_turb  = 0.51
-  coef_mix_KH    = 0.3
+  coef_wind_stir = 0.130
+  coef_mix_shear = 0.100
+  coef_mix_turb  = 0.510
+  coef_mix_KH    = 0.300
   deep_mixing    = 1
   coef_mix_hyp   = 1e-6
-  diff = 0.
 /
 !-------------------------------------------------------------------------------
 ! water quality model setup
 !-------------------------------------------------------------------------------
-!&wq_setup
-! !-- Choose 'aed' or 'fabm' or 'aed2' or 'api'
-!   wq_lib            = 'aed'
-!   wq_nml_file       = 'aed/aed.nml'
-!   ode_method        = 1
-!   split_factor      = 1
-!   bioshade_feedback = .true.
-!   repair_state      = .true.
-!  !mobility_off      = .false.
-!/
+&wq_setup
+ !-- Choose 'aed' or 'fabm' or 'aed2' or 'api'
+   wq_lib            = 'aed'
+   wq_nml_file       = 'aed.nml'
+   ode_method        = 1
+   split_factor      = 1
+   bioshade_feedback = .false.
+   repair_state      = .false.
+  !mobility_off      = .false.
+/
 !-------------------------------------------------------------------------------
 ! morphometry
 !-------------------------------------------------------------------------------
@@ -60,24 +62,21 @@
    lake_name  = 'Lake Richmond'
    latitude   =  -31.743
    longitude  =  115.779
-   crest_elev =  0.56
-   bsn_len    =  1774
-   bsn_wid    =  660
+   crest_elev =    0.560
+   bsn_len    = 1774.000
+   bsn_wid    =  660.000
 
    bsn_vals = 35
-  !H = -14.6,	-14,	-13,	-12,	-11,	-10,	-9,	-8,	-7,	-6,	-5,	-4,	-3,	-2,	-1,	0,	0.26,	1.07, 2.0
-  !A = 0.1,	8000,	20000,	45000,	60000,	70000,	80000,	90000,	100000,	110000,	120000,	130000,	140000,	160000,	180000,	220000,	246556,	575750, 1000000  
    H = -14.6,-14,-13.5,-13,-12.5,-12,-11.5,-11,-10.5,-10,-9.5,-9,-8.5,-8,-7.5,-7,-6.5,-6,-5.5,-5,-4.5,-4,-3.5,-3,-2.5,-2,-1.5,-1,-0.5,0,0.5,1,1.5,2,2.9
    A = 1000,13427,19942,27315,35557,54024,65496,77549,90308,103928,111962,119997,127971,135913,143079,150279,157578,164983,172402,179995,187685,195552,204431,213626,223178,233426,248473,264150,280412,300984,393251,519293,571886,613093,650000
-
 /
 !-------------------------------------------------------------------------------
 ! duration of run
 !-------------------------------------------------------------------------------
 &time
    timefmt = 2                       ! Choose 2 (start/stop) or 3 (num_days)
-   start   = '2010-01-01 12:00:00'
-   stop    = '2015-12-31 23:00:00' !'2019-06-31 23:00:00'  !'2016-12-31 23:00:00'
+   start   = '2009-12-31 12:00:00'
+   stop    = '2020-01-05 23:00:00' 
    dt      = 3600
   !num_days = 730
   !timezone = 8.0
@@ -109,63 +108,57 @@
 ! initial condition profiles
 !-------------------------------------------------------------------------------
 &init_profiles
-    lake_depth  = 15.1                  ! this is -14.6 + 0.5mAHD
-    num_depths  = 4                     ! four profile points 
-    the_depths  = 0, 5.0, 6.0, 15.0     ! initialisation depths
-    ! GLM
-    the_temps   =  25,   23,  17,  15   ! degC
-    the_sals    = 0.53,0.55,0.59,0.61   ! g/L
+    lake_depth   = 15.0                  ! this is -14.6 + 0.4mAHD
+    num_depths   = 4                     ! four profile points 
+    the_depths   = 0, 5.0, 6.0, 15.0     ! initialisation depths
+    ! T,S
+    the_temps    =  25,   23,  17,  15   ! degC
+    the_sals     = 0.53,0.55,0.59,0.61   ! g/L
     ! WQ
-    !num_wq_vars = 6
-    !wq_names    =  'OGM_don',
-    !               'OGM_pon',
-    !               'OGM_dop',
-    !               'OGM_pop',
-    !               'OGM_doc',
-    !               'OGM_poc'
-    !wq_init_vals =  1.1, 1.2, 1.3, 1.2, 1.3
-    !                2.1, 2.2, 2.3, 1.2, 1.3
-    !                3.1, 3.2, 3.3, 1.2, 1.3
-    !                4.1, 4.2, 4.3, 1.2, 1.3
-    !                5.1, 5.2, 5.3, 1.2, 1.3
-    !                6.1, 6.2, 6.3, 1.2, 1.3
+    num_wq_vars  = 3
+    wq_names     =  'TRC_tr1',
+                    'TRC_age',
+                    'OXY_oxy',
+    wq_init_vals =  0.0, 0.0, 0.0, 0.0
+                    0.0, 0.0, 0.0, 0.0
+                    300, 200, 100,  10
 /
 !-------------------------------------------------------------------------------
-! meteorology
+! meteorology 
 !-------------------------------------------------------------------------------
 &meteorology
-   met_sw      = .true.
-   lw_type     = 'LW_IN'
-   rain_sw     = .false.
-   atm_stab    = 0  !may glitch if set to 1
-   fetch_mode  = 0  !wind sheltering option
-  !rad_mode    = 1
-   albedo_mode = 1
-   cloud_mode  = 4
-   !-- BC file details
-   subdaily    = .true.
-   meteo_fl    = 'bcs/meteorology/met_barra.csv'
-   wind_factor = 0.8
-   sw_factor   = 1.0
-   lw_factor   = 1.0
-   rain_factor = 0.0240 ! convert mm/hr into m/d
-   lw_offset   = 0.0
-   rh_factor   = 1.0
-   at_factor   = 1.0
-   !-- Parameters
-   ce = 0.0013   ! latent heat coeff (default 0.0013)
-   ch = 0.0013   ! sensible heat coeff (default 0.0013)
-   cd = 0.0013   ! wind momentum (default 0.0013)
-   catchrain      = .true.
-   rain_threshold = 0.005
-   runoff_coef    = 0.8
+   !-- Module options ---------!
+   lw_type        = 'LW_IN'    ! longwave radiation specification method
+   atm_stab       = 0          ! non-neutral atmospheric stability options
+   fetch_mode     = 0          ! wind sheltering option
+  !rad_mode       = 1          ! radiation model option 
+   albedo_mode    = 1          ! albedo option 
+   cloud_mode     = 4          ! cloud (longwave) option
+   !-- BC file details  -------!
+   meteo_fl       = 'bcs/meteorology/met_barra_ext.csv'
+   subdaily       = .true.     ! hourly data in met file
+   rain_sw        = .false.    ! rainfall constiuents in met file
+   wind_factor    = 0.8        ! wind scaling factor
+   sw_factor      = 1.0        ! solar rad scaling factor
+   lw_factor      = 1.0        ! longwave scaling factor
+   lw_offset      = 0.0        ! longwave offset amount
+   rain_factor    = 0.0240     ! convert mm/hr into m/d
+   rh_factor      = 1.0        ! humidity scaling factor
+   at_factor      = 1.0        ! air temp scaling factor
+   !-- Parameters  ------------!
+   ce             = 0.0013     ! latent heat coeff (default 0.0013)
+   ch             = 0.0013     ! sensible heat coeff (default 0.0013)
+   cd             = 0.0013     ! wind momentum (default 0.0013)
+   catchrain      = .true.     ! local runoff generation from dry area
+   rain_threshold = 0.005      ! rainfall intensnity threshold to generate flow
+   runoff_coef    = 0.8        ! fraction of rain on dry area that creates flow
 /
 !-------------------------------------------------------------------------------
 ! light
 !-------------------------------------------------------------------------------
 &light
-   light_mode = 0    ! bulk light attenuation
-   Kw = 1.0          ! light extinction coeff 
+   light_mode = 0              ! bulk light attenuation option (0 or 1)
+   Kw = 1.0                    ! light extinction coeff (/m)
 /
 !-------------------------------------------------------------------------------
 ! bird_model
@@ -182,19 +175,19 @@
 ! inflows
 !-------------------------------------------------------------------------------
 &inflow
-   num_inflows    = 2
-   names_of_strms = 'Inflow1', 'Inflow2'
-   subm_flag = .false., .true.
-   subm_elev = 0.0, -12.0
-   strm_hf_angle = 85, 85
-   strmbd_slope = 4, 4
-   strmbd_drag = 0.016, 16.5
-   inflow_factor = 2.0, 1
-   inflow_fl = 'bcs/catchment/urban_inflow.csv', 'bcs/catchment/gw_inflow.csv'
-   inflow_varnum = 3
-   inflow_vars = 'FLOW','TEMP','SALT'
+   num_inflows      = 2
+   names_of_strms   = 'StormWater', 'GroundWater'
+   subm_flag        = .false.     , .true.
+   subm_elev        =       0.0   , -12.0
+   strm_hf_angle    =      85     ,  85
+   strmbd_slope     =       4     ,   4
+   strmbd_drag      =       0.016 ,  16.5
+   inflow_factor    =       1.5   ,   1.0
+   inflow_fl        = 'bcs/catchment/urban_inflow.csv','bcs/catchment/gw_inflow.csv'
+   inflow_varnum    = 6  
+   inflow_vars      = 'FLOW','TEMP','SALT', 'TRC_tr1','TRC_age','OXY_oxy'
   !coef_inf_entrain = 0
-  !time_fmt = 'YYYY-MM-DD hh:mm:ss'
+  !time_fmt         = 'YYYY-MM-DD hh:mm:ss'
 /
 !-------------------------------------------------------------------------------
 ! outflows
@@ -208,8 +201,8 @@
    bsn_wid_outl   = 630
    outflow_fl = 'bcs/catchment/gw_outflow.csv'
    outflow_factor = 0.8
-   crest_width = 8
-   crest_factor = 500.01
+   crest_width = 10
+   crest_factor = 450.01
   !outflow_thick_limit = 1
    seepage        = .false.
    seepage_rate   = 0.000
@@ -218,28 +211,14 @@
 ! sediment zones & properties
 !-------------------------------------------------------------------------------
 &sediment
-  sed_heat_Ksoil     = 0.0
+  sed_heat_Ksoil     = 0.00
   sed_temp_depth     = 0.02
   benthic_mode       = 2
   n_zones            = 2
-  zone_heights       = 5, 15
+  zone_heights       =   5, 15
   sed_temp_mean      =  17, 17
-  sed_temp_amplitude =  6,  8
-  sed_temp_peak_doy  = 80, 70
-  sed_reflectivity   =0.1,0.01
-  sed_roughness      =0.1,0.01
+  sed_temp_amplitude =   6,  8
+  sed_temp_peak_doy  =  80, 70
+  sed_reflectivity   = 0.1,0.01
+  sed_roughness      = 0.1,0.01
 /
-!-------------------------------------------------------------------------------
-! ice & snow
-!-------------------------------------------------------------------------------
-!&snowice
-!   snow_albedo_factor = 1.0
-!   snow_rho_max       = 300
-!   snow_rho_min       = 50
-!/
-!-------------------------------------------------------------------------------
-! debugging options
-!-------------------------------------------------------------------------------
-!&debugging
-!disable_evap = .true.
-!/
