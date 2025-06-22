@@ -135,5 +135,6 @@ plt.xlim(xlim_start, xlim_end)
 plt.legend()
 plt.tight_layout()
 
-# Show the plot
+# Show/save the plot
 plt.show()
+plt.savefig('Code/plotting/lake_level_comparison.png')

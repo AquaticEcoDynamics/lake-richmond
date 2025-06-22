@@ -177,14 +177,14 @@ class LakePlotter:
             A list of lines representing the plotted data.
         """
         self._lake_pd_checks()
-        self._set_default_plot_params(param_dict, {"color": "#1f77b4"})
+        self._set_default_plot_params(param_dict, {"color": "#000000"})
         out = ax.plot(
             mdates.date2num(self.lake_pd["time"]),
-            self.lake_pd["Lake Level"]-14.6,
+            self.lake_pd["Lake Level"]-14.6, label='level',
             **param_dict,
         )
         ax.xaxis.set_major_formatter(self._date_formatter)
-        ax.set_ylabel("Lake surface height (m)")
+        ax.set_ylabel("        Surface height (m AHD)")
         ax.set_xlabel("Date")
         return out
 
@@ -331,8 +331,8 @@ class LakePlotter:
             {"color": "#d62728", "label": "Total outflow"},
             {"color": "#9467bd", "label": "Overflow"},
             {"color": "#ff7f0e", "label": "Evaporation"},
-            {"color": "#2ca02c", "label": "Rain"},
-            {"color": "#17becf", "label": "Local runoff"},
+            {"color": "#17becf", "label": "Rain"},
+            {"color": "#2ca02c", "label": "Local runoff"},
             {"color": "#7f7f7f", "label": "Snowfall"},
         ]
         for i in range(len(plot_params)):
@@ -340,16 +340,22 @@ class LakePlotter:
         out = []
         components = [
             ("Tot Inflow Vol", tot_inflow_vol_params),
-            ("Tot Outflow Vol", tot_outflow_vol_params),
-            ("Overflow Vol", overflow_vol_params),
-            ("Evaporation", evaporation_params),
             ("Rain", rain_params),
             ("Local Runoff", local_runoff_params),
             ("Snowfall", snowfall_params),
+            ("Tot Outflow Vol", tot_outflow_vol_params),
+            ("Overflow Vol", overflow_vol_params),
+            ("Evaporation", evaporation_params),
         ]
         for column_name, param_dict in components:
             if param_dict is not None:
                 if column_name == "Tot Outflow Vol":
+                    (out_component,) = ax.plot(
+                        mdates.date2num(self.lake_pd["time"]),
+                        -self.lake_pd[column_name],
+                        **param_dict,
+                    )
+                elif column_name == "Overflow Vol":
                     (out_component,) = ax.plot(
                         mdates.date2num(self.lake_pd["time"]),
                         -self.lake_pd[column_name],

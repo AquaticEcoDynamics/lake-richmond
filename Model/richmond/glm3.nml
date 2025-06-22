@@ -64,9 +64,12 @@
    bsn_len    =  1774
    bsn_wid    =  660
 
-   bsn_vals = 19
-   H = -14.6,	-14,	-13,	-12,	-11,	-10,	-9,	-8,	-7,	-6,	-5,	-4,	-3,	-2,	-1,	0,	0.26,	1.07, 2.0
-   A = 0.1,	8000,	20000,	45000,	60000,	70000,	80000,	90000,	100000,	110000,	120000,	130000,	140000,	160000,	180000,	220000,	246556,	575750, 1000000  
+   bsn_vals = 35
+  !H = -14.6,	-14,	-13,	-12,	-11,	-10,	-9,	-8,	-7,	-6,	-5,	-4,	-3,	-2,	-1,	0,	0.26,	1.07, 2.0
+  !A = 0.1,	8000,	20000,	45000,	60000,	70000,	80000,	90000,	100000,	110000,	120000,	130000,	140000,	160000,	180000,	220000,	246556,	575750, 1000000  
+   H = -14.6,-14,-13.5,-13,-12.5,-12,-11.5,-11,-10.5,-10,-9.5,-9,-8.5,-8,-7.5,-7,-6.5,-6,-5.5,-5,-4.5,-4,-3.5,-3,-2.5,-2,-1.5,-1,-0.5,0,0.5,1,1.5,2,2.9
+   A = 1000,13427,19942,27315,35557,54024,65496,77549,90308,103928,111962,119997,127971,135913,143079,150279,157578,164983,172402,179995,187685,195552,204431,213626,223178,233426,248473,264150,280412,300984,393251,519293,571886,613093,650000
+
 /
 !-------------------------------------------------------------------------------
 ! duration of run
@@ -86,31 +89,32 @@
    out_dir = 'output'
    out_fn  = 'output'
    nsave = 24
-   ! General summary file
+   !-- General summary file
    csv_lake_fname = 'lake'
-   ! Depth specific outputs
+   !-- Depth specific outputs
    csv_point_nlevs = 1
    csv_point_fname = 'WQ_'
+   csv_point_frombot = .false.
    csv_point_at = 1
    csv_point_nvars = 2
    csv_point_vars  = 'temp','salt'
-   ! Combined outlet file & overflow
-!   csv_outlet_allinone = .false.
-!   csv_outlet_fname = 'outlet_'
-!   csv_outlet_nvars = 3
-!   csv_outlet_vars = 'flow','temp','salt','htop','hbot','flbc'
-!   csv_ovrflw_fname = "overflow"
+   !-- Combined outlet file & overflow
+  !csv_outlet_allinone = .false.
+   csv_outlet_fname = 'outlet_'
+   csv_outlet_nvars = 3
+   csv_outlet_vars = 'flow','temp','salt' !,'htop','hbot','flbc'
+   csv_ovrflw_fname = 'overflow'
 /
 !-------------------------------------------------------------------------------
 ! initial condition profiles
 !-------------------------------------------------------------------------------
 &init_profiles
-    lake_depth  = 15.3   ! this is -14.6 + 0.7mAHD
-    num_depths  = 3
-    the_depths  = 0, 5.00, 8.00
+    lake_depth  = 15.1                  ! this is -14.6 + 0.5mAHD
+    num_depths  = 4                     ! four profile points 
+    the_depths  = 0, 5.0, 6.0, 15.0     ! initialisation depths
     ! GLM
-    the_temps   = 25, 24, 21
-    the_sals    = 0.5,0.5, 0.6        ! g/L
+    the_temps   =  25,   23,  17,  15   ! degC
+    the_sals    = 0.53,0.55,0.59,0.61   ! g/L
     ! WQ
     !num_wq_vars = 6
     !wq_names    =  'OGM_don',
@@ -141,7 +145,7 @@
    !-- BC file details
    subdaily    = .true.
    meteo_fl    = 'bcs/meteorology/met_barra.csv'
-   wind_factor = 1.0
+   wind_factor = 0.8
    sw_factor   = 1.0
    lw_factor   = 1.0
    rain_factor = 0.0240 ! convert mm/hr into m/d
@@ -152,21 +156,17 @@
    ce = 0.0013   ! latent heat coeff (default 0.0013)
    ch = 0.0013   ! sensible heat coeff (default 0.0013)
    cd = 0.0013   ! wind momentum (default 0.0013)
-   catchrain      = .false.
+   catchrain      = .true.
    rain_threshold = 0.005
-   runoff_coef    = 0.2
+   runoff_coef    = 0.8
 /
 !-------------------------------------------------------------------------------
 ! light
 !-------------------------------------------------------------------------------
 &light
-   light_mode = 0
-   Kw = 0.8   !light extinction coeff (includes extinction due to pure water, suspended particles (turbidity)& dissolved substances (colour of water)). lower=light penetrates deeper. 5 is very high.
-   n_bands = 4
-   light_extc = 0.5,0.7,1.0,1.5 !5.0, 6.5, 9.0, 13.0  !0.0,0.0,0.0,0.0!
-   energy_frac = 0.51, 0.45, 0.035, 0.005
-   Benthic_Imin = 10
-   /
+   light_mode = 0    ! bulk light attenuation
+   Kw = 1.0          ! light extinction coeff 
+/
 !-------------------------------------------------------------------------------
 ! bird_model
 !-------------------------------------------------------------------------------
@@ -189,11 +189,11 @@
    strm_hf_angle = 85, 85
    strmbd_slope = 4, 4
    strmbd_drag = 0.016, 16.5
-   inflow_factor = 1.5, 1
+   inflow_factor = 2.0, 1
    inflow_fl = 'bcs/catchment/urban_inflow.csv', 'bcs/catchment/gw_inflow.csv'
    inflow_varnum = 3
    inflow_vars = 'FLOW','TEMP','SALT'
-   !coef_inf_entrain = 0
+  !coef_inf_entrain = 0
   !time_fmt = 'YYYY-MM-DD hh:mm:ss'
 /
 !-------------------------------------------------------------------------------
@@ -207,9 +207,9 @@
    bsn_len_outl   = 6000
    bsn_wid_outl   = 630
    outflow_fl = 'bcs/catchment/gw_outflow.csv'
-   outflow_factor = 1.0
+   outflow_factor = 0.8
    crest_width = 8
-   crest_factor = 100.01
+   crest_factor = 500.01
   !outflow_thick_limit = 1
    seepage        = .false.
    seepage_rate   = 0.000

@@ -8,8 +8,8 @@ nc = plots.NCPlotter("richmond/output/output.nc")
 
 vars = nc.get_profile_vars()
 
-plot_vars = vars[3:7]     # returns the variables: ['salt', 'temp', 'dens', 'radn']
-fig, axs = plt.subplots(nrows=4, ncols=1, figsize=(10, 14))
+plot_vars = vars[3:6]     # returns the variables: ['salt', 'temp', 'dens', 'radn']
+fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(10, 14))
 for idx, var, in enumerate(plot_vars):
     out = nc.plot_var_profile(axs[idx], var)
     long_name = nc.get_long_name(var)
@@ -17,24 +17,60 @@ for idx, var, in enumerate(plot_vars):
     col_bar = fig.colorbar(out)
     col_bar.set_label(f"{long_name} ({units})")
 
-plt.savefig('lake_4.png')
+plt.savefig('lake_3.png')
 
-
+# Lake WATER BALANCE plots
 lake = plots.LakePlotter("richmond/output/lake.csv")
 
-fig, ax = plt.subplots(figsize=(10, 5))
-out = lake.water_balance_components(
-    ax=ax, 
-    rain_params={"linestyle": "--"},
-    local_runoff_params=None, 
-    overflow_vol_params=None,
+fig, axs = plt.subplots(nrows=3, ncols=1,figsize=(10, 15))
+out1 = lake.water_balance_components(
+    ax=axs[0], 
+    rain_params={"linestyle": "--","linewidth": 0.5},
+    evaporation_params={"linewidth": 0.5},
+    local_runoff_params={"linestyle": "-.","linewidth": 0.5}, 
+    overflow_vol_params={"linestyle": "dotted"},
     snowfall_params=None
 )
-ax.legend(handles=out)
+axs[0].set_xlim(pd.Timestamp("2010-01-01"), pd.Timestamp("2016-01-01")) 
+# Second y-axis
+ax2 = axs[0].twinx()
+outl = lake.lake_level(ax=ax2)
+ax2.legend(handles=outl,  loc='upper right')
+ax2.set_ylim(-2.5, 2)
+ax2.set_yticks([-0.5, 0, 0.5, 1, 1.5]) 
+ax2.axvspan(pd.Timestamp("2011-01-01"), pd.Timestamp("2012-01-01"), color='yellow', alpha=0.1)
+ax2.axvspan(pd.Timestamp("2013-01-01"), pd.Timestamp("2014-01-01"), color='gray', alpha=0.1)
+ax2.axvspan(pd.Timestamp("2015-01-01"), pd.Timestamp("2016-01-01"), color='gray', alpha=0.1)
+
+out2 = lake.water_balance_components(
+    ax=axs[1], 
+    rain_params={"linestyle": "--","linewidth": 0.5},
+    evaporation_params={"linewidth": 0.5},
+    local_runoff_params={"linestyle": "-.","linewidth": 0.5}, 
+    overflow_vol_params={"linestyle": "dotted"},
+    snowfall_params=None
+)
+axs[1].set_ylim(-10000, 15000)
+axs[1].set_xlim(pd.Timestamp("2010-01-01"), pd.Timestamp("2016-01-01")) 
+axs[1].axvspan(pd.Timestamp("2011-01-01"), pd.Timestamp("2012-01-01"), color='yellow', alpha=0.1)
+axs[1].axvspan(pd.Timestamp("2013-01-01"), pd.Timestamp("2014-01-01"), color='gray', alpha=0.1)
+axs[1].axvspan(pd.Timestamp("2015-01-01"), pd.Timestamp("2016-01-01"), color='gray', alpha=0.1)
+
+out3 = lake.water_balance_components(
+    ax=axs[2], 
+    rain_params={"linestyle": "--", "linewidth": 0.5},
+    evaporation_params={"linewidth": 0.5},
+    local_runoff_params={"linestyle": "-."}, 
+    overflow_vol_params={"linestyle": "dotted"},
+    snowfall_params=None
+)
+axs[2].set_ylim(-6000, 15000)
+axs[2].set_xlim(pd.Timestamp("2011-01-01"), pd.Timestamp("2012-01-01")) 
+axs[2].legend(handles=out1,loc='upper left')
 
 plt.savefig('lake_wb.png')
 
-
+# Lake level plots
 fig, ax = plt.subplots(figsize=(10, 5))
 lake.lake_level(ax=ax)
 plt.savefig('lake_level.png')
