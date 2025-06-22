@@ -7,6 +7,7 @@ from pyproj import Transformer, CRS
 import numpy as np
 import glob
 from scipy.interpolate import griddata
+import cmocean
 
 # Configuration for profiler variable display names and colorbar limits
 variable_config = {
@@ -101,12 +102,13 @@ for var, df_plot in profiler_data.items():
 
     config = variable_config.get(var, {"label": var, "vmin": None, "vmax": None})
     print(f"Plotting variable: {var}, vmin: {config['vmin']}, vmax: {config['vmax']}")
+    cmap = "cmo.oxy" if var == "DO [mg/l]" else "viridis"
     if config["vmin"] is not None and config["vmax"] is not None:
         levels = np.linspace(config["vmin"], config["vmax"], 100)
         zi_clipped = np.clip(zi, config["vmin"], config["vmax"])
-        contour = ax.contourf(Xi, Yi, zi_clipped, levels=levels, cmap="viridis", vmin=config["vmin"], vmax=config["vmax"])
+        contour = ax.contourf(Xi, Yi, zi_clipped, levels=levels, cmap=cmap, vmin=config["vmin"], vmax=config["vmax"])
     else:
-        contour = ax.contourf(Xi, Yi, zi, cmap="viridis")
+        contour = ax.contourf(Xi, Yi, zi, cmap=cmap)
     print(f"Contour levels range: {contour.get_clim()}")
     ax.invert_yaxis()
     ax.scatter(index_df["Distance_m"][2:-2], [-0.5] * (len(index_df) - 4), color='k', marker='o', s=10, zorder=11)
