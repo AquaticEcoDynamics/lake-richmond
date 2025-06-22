@@ -11,20 +11,20 @@ import cmocean
 
 # Configuration for profiler variable display names and colorbar limits
 variable_config = {
-    "Temp. [degC]": {"label": "Temperature (°C)", "vmin": 18, "vmax": 26},
-    "Sal.": {"label": "Salinity (PSU)", "vmin": 0.4, "vmax": 0.6},
-    "Cond. [mS/cm]": {"label": "Conductivity (mS/cm)", "vmin": 0, "vmax": 60},
-    "EC25 [�S/cm]": {"label": "EC25 (µS/cm)", "vmin": 0, "vmax": 60000},
-    "Density [kg/m3]": {"label": "Density (kg/m³)", "vmin": 1000, "vmax": 1030},
-    "SigmaT": {"label": "Sigma-T", "vmin": 0, "vmax": 30},
-    "Chl-Flu. [ppb]": {"label": "Chlorophyll Fluorescence (ppb)", "vmin": 0, "vmax": 100},
-    "Chl-a [�g/l]": {"label": "Chlorophyll-a (µg/L)", "vmin": 0, "vmax": 100},
-    "Turb. [FTU]": {"label": "Turbidity (FTU)", "vmin": 0, "vmax": 200},
-    "pH": {"label": "pH", "vmin": 6, "vmax": 9},
-    "ORP [mV]": {"label": "ORP (mV)", "vmin": -500, "vmax": 500},
-    "DO [%]": {"label": "DO (%)", "vmin": 0, "vmax": 150},
-    "DO [mg/l]": {"label": "DO (mg/L)", "vmin": 2, "vmax": 10},
-    "Quant. [�mol/(m2*s)]": {"label": "PAR (µmol/m²/s)", "vmin": 0, "vmax": 2500},
+    "Temp. [degC]": {"label": "Temperature (°C)", "vmin": 18, "vmax": 26, "cmap": "viridis"},
+    "Sal.": {"label": "Salinity (PSU)", "vmin": 0.4, "vmax": 0.6, "cmap": "viridis"},
+    "Cond. [mS/cm]": {"label": "Conductivity (mS/cm)", "vmin": 0, "vmax": 60, "cmap": "viridis"},
+    "EC25 [�S/cm]": {"label": "EC25 (µS/cm)", "vmin": 0, "vmax": 60000, "cmap": "viridis"},
+    "Density [kg/m3]": {"label": "Density (kg/m³)", "vmin": 1000, "vmax": 1030, "cmap": "viridis"},
+    "SigmaT": {"label": "Sigma-T", "vmin": 0, "vmax": 30, "cmap": "viridis"},
+    "Chl-Flu. [ppb]": {"label": "Chlorophyll Fluorescence (ppb)", "vmin": 0, "vmax": 100, "cmap": "viridis"},
+    "Chl-a [�g/l]": {"label": "Chlorophyll-a (µg/L)", "vmin": 0, "vmax": 100, "cmap": "viridis"},
+    "Turb. [FTU]": {"label": "Turbidity (FTU)", "vmin": 0, "vmax": 200, "cmap": "viridis"},
+    "pH": {"label": "pH", "vmin": 6, "vmax": 9, "cmap": "viridis"},
+    "ORP [mV]": {"label": "ORP (mV)", "vmin": -500, "vmax": 500, "cmap": "viridis"},
+    "DO [%]": {"label": "DO (%)", "vmin": 0, "vmax": 150, "cmap": "cmo.oxy"},
+    "DO [mg/l]": {"label": "DO (mg/L)", "vmin": 2, "vmax": 10, "cmap": "cmo.oxy"},
+    "Quant. [�mol/(m2*s)]": {"label": "PAR (µmol/m²/s)", "vmin": 0, "vmax": 2500, "cmap": "viridis"},
 }
 
 # Load index file
@@ -102,7 +102,7 @@ for var, df_plot in profiler_data.items():
 
     config = variable_config.get(var, {"label": var, "vmin": None, "vmax": None})
     print(f"Plotting variable: {var}, vmin: {config['vmin']}, vmax: {config['vmax']}")
-    cmap = "cmo.oxy" if var == "DO [mg/l]" else "viridis"
+    cmap = config.get("cmap", "viridis")
     if config["vmin"] is not None and config["vmax"] is not None:
         levels = np.linspace(config["vmin"], config["vmax"], 100)
         zi_clipped = np.clip(zi, config["vmin"], config["vmax"])
