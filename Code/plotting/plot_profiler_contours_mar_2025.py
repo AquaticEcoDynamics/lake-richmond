@@ -24,7 +24,7 @@ variable_config = {
     "ORP [mV]": {"label": "ORP (mV)", "vmin": -500, "vmax": 500, "cmap": "viridis"},
     "DO [%]": {"label": "DO (%)", "vmin": 0, "vmax": 150, "cmap": "cmo.oxy"},
     "DO [mg/l]": {"label": "DO (mg/L)", "vmin": 2, "vmax": 10, "cmap": "cmo.oxy"},
-    "Quant. [�mol/(m2*s)]": {"label": "PAR (µmol/m²/s)", "vmin": 0, "vmax": 2500, "cmap": "viridis"},
+    "Quant. [umol/(m2*s)]": {"label": "PAR (µmol/m²/s)", "vmin": 0, "vmax": 2500, "cmap": "viridis"},
 }
 
 # Load index file

@@ -182,7 +182,7 @@
    strm_hf_angle    =      85     ,  85
    strmbd_slope     =       4     ,   4
    strmbd_drag      =       0.016 ,  16.5
-   inflow_factor    =       1.5   ,   1.0
+   inflow_factor    =       1.75   ,   0.55
    inflow_fl        = 'bcs/catchment/urban_inflow.csv','bcs/catchment/gw_inflow.csv'
    inflow_varnum    = 6  
    inflow_vars      = 'FLOW','TEMP','SALT', 'TRC_tr1','TRC_age','OXY_oxy'
@@ -200,9 +200,9 @@
    bsn_len_outl   = 6000
    bsn_wid_outl   = 630
    outflow_fl = 'bcs/catchment/gw_outflow.csv'
-   outflow_factor = 0.8
+   outflow_factor = 0.34
    crest_width = 10
-   crest_factor = 450.01
+   crest_factor = 400.01
   !outflow_thick_limit = 1
    seepage        = .false.
    seepage_rate   = 0.000
