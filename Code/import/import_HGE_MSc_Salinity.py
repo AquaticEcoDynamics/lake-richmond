@@ -1,3 +1,5 @@
+
+
 """
 Script: import_HGE_MSc_Salinity.py
 
@@ -31,7 +33,6 @@ sheet_name = "Picture 1"
 
 # Load the salinity data
 df = pd.read_excel(excel_path, sheet_name=sheet_name, usecols="O:P", skiprows=2, names=["DateTime", "Salinity_mg_L"])
-df = df.dropna(subset=["DateTime", "Salinity_mg_L"])
 
 # Convert salinity from mg/L to PSU using a freshwater-appropriate conversion factor.
 # This factor (0.000806) better reflects salinity behavior in low-conductivity environments,
@@ -42,7 +43,7 @@ df["Salinity_PSU"] = df["Salinity_mg_L"] * 0.000806
 # Create output DataFrame
 df_out = pd.DataFrame({
     "Agency": "HGE",
-    "Site": "MSc Logger",
+    "Site": "Logger (MSc)",
     "DateTime": pd.to_datetime(df["DateTime"]),
     "Variable": "Salinity (PSU)",
     "Reading": df["Salinity_PSU"]
@@ -70,7 +71,6 @@ print(f"Appended salinity data to {output_path}")
 
 # Load the TDS data
 df_tds = pd.read_excel(excel_path, sheet_name="Picture 5", usecols="AD:AE", skiprows=2, names=["DateTime", "TDS_mg_L"])
-df_tds = df_tds.dropna(subset=["DateTime", "TDS_mg_L"])
 
 # Display the first few rows of the TDS DataFrame for verification
 print(df_tds.head())
@@ -78,7 +78,7 @@ print(df_tds.head())
 # Create output DataFrame
 df_tds_out = pd.DataFrame({
     "Agency": "HGE",
-    "Site": "MSc Logger",
+    "Site": "Logger (MSc)",
     "DateTime": pd.to_datetime(df_tds["DateTime"]),
     "Variable": "TDS (mg/L)",
     "Reading": df_tds["TDS_mg_L"]

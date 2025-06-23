@@ -42,7 +42,7 @@ df_board["DateTime"] = pd.to_datetime(df_board["DateTime"], errors='coerce')
 df_board["Reading"] = pd.to_numeric(df_board["Reading"], errors='coerce')
 df_board.dropna(inplace=True)
 df_board["Agency"] = "HGE"
-df_board["Site"] = "MSc board"
+df_board["Site"] = "Board (MSc)"
 df_board["Variable"] = "Water Level (mAHD)"
 
 # Load columns N and O: MSc Logger
@@ -52,7 +52,7 @@ df_logger["DateTime"] = pd.to_datetime(df_logger["DateTime"], errors='coerce')
 df_logger["Reading"] = pd.to_numeric(df_logger["Reading"], errors='coerce')
 df_logger.dropna(inplace=True)
 df_logger["Agency"] = "HGE"
-df_logger["Site"] = "MSc Logger"
+df_logger["Site"] = "Logger (MSc)"
 df_logger["Variable"] = "Water Level (mAHD)"
 
 # Combine both datasets

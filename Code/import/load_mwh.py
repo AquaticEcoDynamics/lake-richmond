@@ -38,7 +38,7 @@ plt.savefig('Data/data-lake/MWH/MWH_WL.png')
 # Prepare and append Stadia WL data
 stadia_df = pd.DataFrame({
     "Agency": "MWH",
-    "Site": "Stadia",
+    "Site": "Board",
     "DateTime": df1["Datetime_1"],
     "Variable": "Water Level (mAHD)",
     "Reading": df1["Stadia WL"]
@@ -47,7 +47,7 @@ stadia_df = pd.DataFrame({
 # Prepare and append WL Elevation data
 wl_df = pd.DataFrame({
     "Agency": "MWH",
-    "Site": "WL",
+    "Site": "Logger",
     "DateTime": df2["Datetime_2"],
     "Variable": "Water Level (mAHD)",
     "Reading": df2["WL Elevation"]

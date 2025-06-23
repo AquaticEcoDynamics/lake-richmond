@@ -60,7 +60,7 @@ for original_var, (standard_var, clean_name) in variable_map.items():
     df_out = df_out.rename(columns={original_var: "Reading"})
     df_out = df_out.dropna(subset=["Reading"])
     df_out["Agency"] = "360E"
-    df_out["Site"] = "Depth Board"
+    df_out["Site"] = "Board (2022)"
     df_out["Variable"] = standard_var
 
     # Save as Parquet

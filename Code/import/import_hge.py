@@ -12,7 +12,7 @@ df_logger = xls.parse("Final Logger mAHD Data")
 df_logger = df_logger.rename(columns={"Date/time": "DateTime", "resovled data mAHD": "Reading"})
 df_logger["DateTime"] = pd.to_datetime(df_logger["DateTime"])
 df_logger["Agency"] = "HGE"
-df_logger["Site"] = "Logger"
+df_logger["Site"] = "Logger (2018)"
 df_logger["Variable"] = "Water Level (mAHD)"
 
 # Reorder columns
@@ -36,7 +36,7 @@ df_grab["DateTime"] = pd.to_datetime(df_grab["DateTime"], errors="coerce")
 df_grab["Reading"] = pd.to_numeric(df_grab["Reading"], errors="coerce")
 df_grab.dropna(subset=["DateTime", "Reading"], inplace=True)
 df_grab["Agency"] = "HGE"
-df_grab["Site"] = "Grab"
+df_grab["Site"] = "Board (2018)"
 df_grab["Variable"] = "Water Level (mAHD)"
 df_grab = df_grab[["Agency", "Site", "DateTime", "Variable", "Reading"]]
 
@@ -49,13 +49,13 @@ print(f"Appended logger data to {parquet_file}")
 # Plot the logger data
 import matplotlib.pyplot as plt
 
-plt.figure(figsize=(12, 6))
-plt.plot(df_combined[df_combined["Site"] == "Logger"]["DateTime"], df_combined[df_combined["Site"] == "Logger"]["Reading"], color="green", label="HGE - Logger")
-plt.plot(df_combined[df_combined["Site"] == "Grab"]["DateTime"], df_combined[df_combined["Site"] == "Grab"]["Reading"], color="blue", label="HGE - Grab")
-plt.xlabel("Date")
-plt.ylabel("Water Level (mAHD)")
-plt.title("HGE Logger Water Level Time Series")
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
+# plt.figure(figsize=(12, 6))
+# plt.plot(df_combined[df_combined["Site"] == "Logger (2018)"]["DateTime"], df_combined[df_combined["Site"] == "Logger"]["Reading"], color="green", label="HGE - Logger")
+# plt.plot(df_combined[df_combined["Site"] == "Board (2018)"]["DateTime"], df_combined[df_combined["Site"] == "Grab"]["Reading"], color="blue", label="HGE - Grab")
+# plt.xlabel("Date")
+# plt.ylabel("Water Level (mAHD)")
+# plt.title("HGE Logger Water Level Time Series")
+# plt.legend()
+# plt.grid(True)
+# plt.tight_layout()
+# plt.show()

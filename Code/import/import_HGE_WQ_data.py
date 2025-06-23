@@ -20,7 +20,7 @@ df_mw = pd.DataFrame({
     "Temp": pd.NA
 })
 df_mw["Agency"] = "HGE"
-df_mw["Site"] = "Depth Board"
+df_mw["Site"] = "Barod (2018)"
 
 # Site RV
 df_rv = pd.DataFrame({
@@ -29,7 +29,7 @@ df_rv = pd.DataFrame({
     "Temp": df_phd.loc[2:4, 6].astype(float)
 })
 df_rv["Agency"] = "HGE"
-df_rv["Site"] = "Depth Board"
+df_rv["Site"] = "Board (2018)"
 
 # Append MW and RV data to corresponding parquet files
 for df_site in [df_mw, df_rv]:
@@ -62,7 +62,7 @@ df["EC"] = df["EC"] * 1000  # Convert from mS/cm to µS/cm
 df["Date"] = pd.to_datetime(df["Date"])
 
 agency = "HGE"
-site = "HGE Logger"
+site = "Logger (2018)"
 
 for var in ["Temp", "EC"]:
     var_label = variable_map[var]["label"]
