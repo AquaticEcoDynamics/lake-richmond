@@ -32,15 +32,16 @@ import os
 # -------------------- Configuration --------------------
 
 xlim_start = pd.Timestamp("2010-01-01")
-xlim_end = pd.Timestamp("2024-01-01")
+xlim_end = pd.Timestamp("2020-01-01")
 xtickint = 1
 
 # -------------------- Model Configuration --------------------
 
 model_configs = [
-    {"dir": "Model/richmond/output", "color": "red", "label": "Model A"},
-    {"dir": "Model/richmond/output_2", "color": "blue", "label": "Model B"},
-    {"dir": "Model/richmond/output_3", "color": "green", "label": "Model C"},
+    {"dir": "Model/richmond/output_base", "color": "black", "label": "base"},
+    {"dir": "Model/richmond/output_nosw", "color": "blue", "label": "no stormwater"},
+    {"dir": "Model/richmond/output_nosw_higw", "color": "green", "label": "... + hi gw"},
+    {"dir": "Model/richmond/output_nosw_higw_cc", "color": "red", "label": ".. .. + climate change", "linewidth": "0.1"},
 ]
 
 # -------------------- Helper Function --------------------
@@ -56,7 +57,7 @@ def apply_plot(ax, df, ylabel, variable_filter):
         site_df = df[df["Site"] == site]
         label = f"{site_df['Agency'].iloc[0]} - {site}"
         color = color_map.get(site, "gray")
-        ax.plot(site_df["DateTime"], site_df["Reading"], label=site, color=color)
+        ax.plot(site_df["DateTime"], site_df["Reading"], label=site, color=color, linewidth=0.8)
 
     ax.set_ylabel(ylabel)
     ax.grid(True)
@@ -88,7 +89,7 @@ for config in model_configs:
     model_wq = load_model_wq(wq_path)
 
     model_temp = model_wq.copy()
-    model_temp["Reading"] = model_temp["temp"]
+    model_temp["Reading"] = model_temp["temp"].rolling(window=7, center=True).mean()
     model_temp["Agency"] = config["label"]
     model_temp["Site"] = config["label"]
     model_temp["Variable"] = "Temperature"
@@ -106,15 +107,15 @@ color_map = {config["label"]: config["color"] for config in model_configs}
 
 # -------------------- Plotting --------------------
 
-fig, axes = plt.subplots(3, 1, figsize=(12, 9), sharex=True)
+fig, axes = plt.subplots(3, 1, figsize=(10, 12), sharex=True)
 
 apply_plot(axes[0], df_level, "Lake Level (mAHD)", "Water Level")
 axes[0].set_title("Lake Level Comparison")
 
-apply_plot(axes[1], df_temp, "Temperature (°C)", "Temperature")
+apply_plot(axes[1], df_temp, "Temperature (°C)", "Surface Temperature")
 axes[1].set_title("Temperature Comparison")
 
-apply_plot(axes[2], df_sal, "Salinity (PSU)", "Salinity")
+apply_plot(axes[2], df_sal, "Salinity (g/L)", "Surface salinity")
 axes[2].set_title("Salinity Comparison")
 
 axes[2].set_xlabel("Year")

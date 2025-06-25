@@ -46,16 +46,16 @@ xlim_end = pd.Timestamp("2020-01-01")
 
 # Plot styles by site - customize marker types and colors for each site
 plot_styles = {
-    "s6142501":   {"kind": "scatter", "color": "blue"},
-    "Stadia":     {"kind": "scatter", "color": "orange"},
-    "WL":         {"kind": "scatter", "color": "black"},
-    "Logger":     {"kind": "scatter", "color": "green"},
-    "Grab":       {"kind": "scatter", "color": "pink"},
-    "MSc board":  {"kind": "scatter", "color": "yellow"},
-    "MSc Logger": {"kind": "scatter", "color": "brown"},
-    "Board":      {"kind": "scatter", "color": "cyan"},
-    "Model":      {"kind": "line", "color": "red"},
-    
+    "Model":        {"kind": "line", "color": "red"},
+    "Board":  {"kind": "scatter", "color": "gold"},
+    "Logger (MSc)":   {"kind": "scatter", "color": "orange"},
+    "s6142501":     {"kind": "scatter", "color": "blue"},
+    "Logger":       {"kind": "scatter", "color": "orange"},
+    "Board (2018)":           {"kind": "scatter", "color": "black"},
+    "Logger (2018)":       {"kind": "scatter", "color": "green"},
+    "Board (MSc)":         {"kind": "scatter", "color": "pink"},
+    "Logger (MSc)":   {"kind": "scatter", "color": "brown"},
+    "Board (2022)":        {"kind": "scatter", "color": "cyan"},
 }
 
 # Interval for X Ticks (yearly) - adjust for more or fewer ticks on x-axis

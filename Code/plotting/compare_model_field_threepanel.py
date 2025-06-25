@@ -29,7 +29,7 @@ import os
 # -------------------- Configuration --------------------
 
 xlim_start = pd.Timestamp("2010-01-01")
-xlim_end = pd.Timestamp("2024-01-01")
+xlim_end = pd.Timestamp("2023-01-01")
 xtickint = 1
 
 plot_styles = {
@@ -61,7 +61,7 @@ def apply_plot(ax, df, ylabel, variable_filter):
         if style["kind"] == "line":
             ax.plot(site_df["DateTime"], site_df["Reading"], label=label, color=style["color"])
         elif style["kind"] == "scatter":
-            ax.scatter(site_df["DateTime"], site_df["Reading"], label=label, color=style["color"], s=10)
+            ax.scatter(site_df["DateTime"], site_df["Reading"], label=label, color=style["color"], s=5)
 
     ax.set_ylabel(ylabel)
     ax.grid(True)
@@ -109,7 +109,7 @@ df_sal = pd.concat([field_sal, model_sal], ignore_index=True)
 
 # -------------------- Plotting --------------------
 
-fig, axes = plt.subplots(3, 1, figsize=(12, 9), sharex=True)
+fig, axes = plt.subplots(3, 1, figsize=(10, 12), sharex=True)
 
 apply_plot(axes[0], df_level, "Lake Level (mAHD)", "Water Level")
 axes[0].set_title("Lake Level Comparison")
