@@ -38,11 +38,14 @@ xtickint = 1
 # -------------------- Model Configuration --------------------
 
 model_configs = [
-    {"dir": "Model/richmond/output_base", "color": "black", "label": "base"},
+    {"dir": "Model/richmond/output_base", "color": "black", "label": "base", "linewidth": "1.5"},
+    {"dir": "Model/richmond/output_2sal", "color": "brown", "label": "base + 2x gwsal", "linewidth": "1.5"},
     {"dir": "Model/richmond/output_nosw", "color": "blue", "label": "no stormwater"},
     {"dir": "Model/richmond/output_nosw_higw", "color": "green", "label": "... + hi gw"},
-    {"dir": "Model/richmond/output_nosw_higw_cc", "color": "red", "label": ".. .. + climate change", "linewidth": "0.1"},
+    {"dir": "Model/richmond/output_nosw_higw_cc", "color": "orange", "label": ".. .. + climate change", "linewidth": "0.1"},
+    {"dir": "Model/richmond/output_nosw_higw_2sal", "color": "red", "label": ".. .. + 2x gwsal", "linewidth": "0.1"},
 ]
+#    {"dir": "Model/richmond/output_bla", "color": "purple", "label": ".. .. + 2x gw sal", "linewidth": "0.1"},
 
 # -------------------- Helper Function --------------------
 

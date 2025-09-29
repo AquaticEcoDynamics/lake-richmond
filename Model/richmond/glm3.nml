@@ -113,7 +113,7 @@
     the_depths   = 0, 5.0, 6.0, 15.0     ! initialisation depths
     ! T,S
     the_temps    =  25,   23,  17,  15   ! degC
-    the_sals     = 0.53,0.55,0.59,0.61   ! g/L
+    the_sals     = 0.83,0.95,0.99,0.91   ! g/L
     ! WQ
     num_wq_vars  = 3
     wq_names     =  'TRC_tr1',
@@ -138,13 +138,14 @@
    meteo_fl       = 'bcs/meteorology/met_barra_ext.csv'
    subdaily       = .true.     ! hourly data in met file
    rain_sw        = .false.    ! rainfall constiuents in met file
-   wind_factor    = 0.8        ! wind scaling factor
+   wind_factor    = 0.9        ! wind scaling factor
    sw_factor      = 1.0        ! solar rad scaling factor
    lw_factor      = 1.0        ! longwave scaling factor
    lw_offset      = 0.0        ! longwave offset amount
-   rain_factor    = 0.0240     ! convert mm/hr into m/d
+   rain_factor    = 0.021 !40     ! convert mm/hr into m/d
    rh_factor      = 1.0        ! humidity scaling factor
    at_factor      = 1.0        ! air temp scaling factor
+   at_offset      = 2.5        ! air temp scaling factor
    !-- Parameters  ------------!
    ce             = 0.0013     ! latent heat coeff (default 0.0013)
    ch             = 0.0013     ! sensible heat coeff (default 0.0013)
@@ -178,12 +179,12 @@
    num_inflows      = 2
    names_of_strms   = 'StormWater', 'GroundWater'
    subm_flag        = .false.     , .true.
-   subm_elev        =       0.0   , -12.0
+   subm_elev        =       0.0   , -5.0
    strm_hf_angle    =      85     ,  85
    strmbd_slope     =       4     ,   4
    strmbd_drag      =       0.016 ,  16.5
-   inflow_factor    =       1.75   ,   0.55
-   inflow_fl        = 'bcs/catchment/urban_inflow.csv','bcs/catchment/gw_inflow.csv'
+   inflow_factor    =       0.00   ,   0.85
+   inflow_fl        = 'bcs/catchment/urban_inflow.csv','bcs/catchment/gw_inflow_hisal.csv'
    inflow_varnum    = 6  
    inflow_vars      = 'FLOW','TEMP','SALT', 'TRC_tr1','TRC_age','OXY_oxy'
   !coef_inf_entrain = 0
